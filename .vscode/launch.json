@@ -1,44 +1,16 @@
 {
+  // Use o IntelliSense para saber mais sobre os atributos possíveis.
+  // Focalizar para exibir as descrições dos atributos existentes.
+  // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
-  "configurations": [{
-      "name": "nodemon",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "program": "${workspaceFolder}/",
-      "request": "launch",
-      "restart": true,
-      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/nodemon",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "type": "pwa-node"
-    },
+  "configurations": [
     {
-      "name": "jest",
-      "request": "launch",
-      "runtimeArgs": [
-        "run-script",
-        "test"
-      ],
-      "runtimeExecutable": "npm",
+      "type": "node",
+      "request": "attach",
+      "name": "Launch Program",
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "type": "node"
-    },
-    {
-      "name": "mocha",
-      "request": "launch",
-      "runtimeArgs": [
-        "run-script",
-        "mocha"
-      ],
-      "runtimeExecutable": "npm",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "type": "node"
     }
-  ],
-  "compounds": []
+  ]
 }
