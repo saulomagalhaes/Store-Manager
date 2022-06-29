@@ -11,5 +11,9 @@ const productsService = {
     if (!product) throwNotFoundError('Product not found');
     return product;
   },
+  async create(name) {
+    const productId = await productsModel.create(name);
+    return { id: productId, name };
+  },
 };
 module.exports = { productsService };
