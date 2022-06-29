@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest --config ./jest.config.js --runInBand --detectOpenHandles",
     "test:mocha": "nyc --all --include models --include services --include controllers mocha tests/unit/**/*.js --exit",
-    "start": "nodemon --inspect index.js",
+    "start": "node index.js",
     "debug": "nodemon --ignore coverage index.js",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js, .jsx",
     "migration": "node -e \"require('./__tests__/_utils').runMigration()\"",
@@ -29,6 +29,7 @@
   "dependencies": {
     "@hapi/boom": "^9.1.0",
     "body-parser": "^1.19.0",
+    "chai-as-promised": "^7.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",

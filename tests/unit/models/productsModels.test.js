@@ -1,7 +1,10 @@
-const { expect } = require("chai");
+const chai = require("chai");
+const chaiAsPromised = require("chai-as-promised");
 const sinon = require("sinon");
 const { connection } = require("../../../models/connection");
 const { productsModel } = require("../../../models/productsModel");
+
+chai.use(chaiAsPromised);
 
 describe("ProductsModel", () => {
   beforeEach(() => {
@@ -27,7 +30,7 @@ describe("ProductsModel", () => {
         ],
       ]);
       const products = await productsModel.getAll();
-      expect(products).to.be.deep.equal([
+      chai.expect(products).to.be.deep.equal([
         {
           id: 1,
           name: "Martelo de Thor",
@@ -44,14 +47,22 @@ describe("ProductsModel", () => {
     });
   });
 
-  describe('#gettById', async () => {
+  describe('#gettById', () => {
     it("ao solicitar uma busca de produto por parametro retorna um objeto", async () => {
       sinon
         .stub(connection, "execute")
         .resolves([[{ id: 1, name: "Martelo de Thor" }]]);
       
       const product = await productsModel.getById(1);
-      expect(product).to.be.deep.equal({ id: 1, name: "Martelo de Thor" });
+      chai.expect(product).to.be.deep.equal({ id: 1, name: "Martelo de Thor" });
+    });
+  })
+
+  describe("#create", () => {
+    it("deve retornar true se encontrar o item", async () => {
+      sinon.stub(connection, "execute").resolves([{ insertId: 1 }]);
+      const id = await productsModel.create("Oculos");
+      chai.expect(id).to.be.equal(1);
     });
   })
 });
