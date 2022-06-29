@@ -1,7 +1,23 @@
+const Joi = require('joi');
+
 const { productsModel } = require('../models/productsModel');
 const { throwNotFoundError } = require('../errors/NotFoundError');
+const { runSchema } = require('../middlewares/validators');
+// const message = require('../errors/messages');
 
 const productsService = {
+  validateCreateProduct: runSchema(
+    Joi.object({
+      name: Joi.string().min(5).required(),
+    }),
+  ),
+  validateParamsCep: runSchema(
+    Joi.object({
+      cep: Joi.string()
+        .regex(/^\d{5}-?\d{3}$/)
+        .required(),
+    }),
+  ),
   async getAll() {
     const products = await productsModel.getAll();
     return products;

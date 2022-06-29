@@ -11,6 +11,7 @@ const productsController = {
   },
   async create(req, res) {
     const { name } = req.body;
+    await productsService.validateCreateProduct(req.body);
     const product = await productsService.create(name);
     res.status(201).json(product);
   },

@@ -14,10 +14,10 @@ app.get('/', (_request, response) => {
 app.use(router);
 
 app.use((err, _req, res, _next) => {
-  const { name, message } = err;
+  const { name, message, code } = err;
   switch (name) {
     case 'ValidationError':
-      res.status(400).json({ message });
+      res.status(code).json({ message });
       break;
     case 'NotFoundError':
       res.status(404).json({ message });
