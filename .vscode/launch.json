@@ -31,8 +31,8 @@
       "name": "mocha",
       "request": "launch",
       "runtimeArgs": [
-        "run-script",
-        "mocha"
+        "run-test",
+        "test:mocha"
       ],
       "runtimeExecutable": "npm",
       "skipFiles": [

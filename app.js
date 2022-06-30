@@ -20,7 +20,7 @@ app.use((err, _req, res, _next) => {
       res.status(code).json({ message });
       break;
     case 'NotFoundError':
-      res.status(404).json({ message });
+      res.status(code).json({ message });
       break;
     default:
       console.warn(err);
