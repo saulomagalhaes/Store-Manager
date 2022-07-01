@@ -23,13 +23,9 @@ describe("ProductsService", () => {
           id: 2,
           name: "Traje de encolhimento",
         },
-        {
-          id: 3,
-          name: "Escudo do Capitão América",
-        },
       ]);
       const products = await productsService.getAll();
-      chai.expect(products).to.be.deep.equal([
+      chai.expect(products).to.deep.equal([
         {
           id: 1,
           name: "Martelo de Thor",
@@ -37,10 +33,6 @@ describe("ProductsService", () => {
         {
           id: 2,
           name: "Traje de encolhimento",
-        },
-        {
-          id: 3,
-          name: "Escudo do Capitão América",
         },
       ]);
     });
@@ -51,16 +43,15 @@ describe("ProductsService", () => {
       sinon
         .stub(productsModel, "getById")
         .resolves({ id: 1, name: "Martelo de Thor" });
-
       const product = await productsService.getById(1);
-      chai.expect(product).to.be.deep.equal({ id: 1, name: "Martelo de Thor" });
+      chai.expect(product).to.deep.equal({ id: 1, name: "Martelo de Thor" });
     });
-    it("ao solicitar uma busca de um produto que não existe um erro é disparado", async () => {
-      sinon.stub(productsModel, "getById").resolves(undefined);
 
-      chai
+    it("ao solicitar uma busca de um produto que não existe um erro é disparado", () => {
+      sinon.stub(productsModel, "getById").resolves(undefined);
+      return chai
         .expect(productsService.getById(99999999999999))
-        .to.eventually.be.rejectedWith(throwNotFoundError);
+        .to.eventually.be.rejectedWith("Product not found");
     });
   });
 
@@ -68,7 +59,7 @@ describe("ProductsService", () => {
     it("deve retornar true se encontrar o item", async () => {
       sinon.stub(productsModel, "create").resolves(1);
       const result = await productsService.create("Oculos");
-      chai.expect(result).to.be.deep.equal({ id: 1, name: "Oculos" });
+      chai.expect(result).to.deep.equal({ id: 1, name: "Oculos" });
     });
   });
 });

@@ -8,7 +8,6 @@ const {
 } = require("../../../controllers/productsController");
 const { productsService } = require("../../../services/productsService");
 
-
 describe("ProductsController", () => {
   beforeEach(() => {
     sinon.restore();
@@ -18,8 +17,10 @@ describe("ProductsController", () => {
     it("ao solicitar uma busca por todos os produtos retorna um array com vários objetos ", async () => {
       const req = {};
       const res = {};
+
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
+
       sinon.stub(productsService, "getAll").resolves([
         {
           id: 1,
@@ -28,10 +29,6 @@ describe("ProductsController", () => {
         {
           id: 2,
           name: "Traje de encolhimento",
-        },
-        {
-          id: 3,
-          name: "Escudo do Capitão América",
         },
       ]);
       await productsController.getAll(req, res);
@@ -47,13 +44,9 @@ describe("ProductsController", () => {
               id: 2,
               name: "Traje de encolhimento",
             },
-            {
-              id: 3,
-              name: "Escudo do Capitão América",
-            },
           ])
         )
-        .to.be.deep.equal(true);
+        .to.be.equal(true);
     });
   });
 
@@ -61,8 +54,10 @@ describe("ProductsController", () => {
     it("ao solicitar uma busca de produto por parametro retorna um objeto", async () => {
       const req = {};
       const res = {};
+
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
+
       req.params = { id: 1 };
 
       sinon
@@ -84,6 +79,7 @@ describe("ProductsController", () => {
 
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
+
       req.body = {
         name: "flamengo",
       };

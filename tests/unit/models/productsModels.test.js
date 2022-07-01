@@ -36,7 +36,7 @@ describe("ProductsModel", () => {
         .resolves([[{ id: 1, name: "Martelo de Thor" }]]);
 
       const product = await productsModel.getById(1);
-      chai.expect(product).to.be.deep.equal({ id: 1, name: "Martelo de Thor" });
+      chai.expect(product).to.deep.equal({ id: 1, name: "Martelo de Thor" });
     });
   });
 
