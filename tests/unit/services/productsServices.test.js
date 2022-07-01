@@ -1,6 +1,7 @@
 const chai = require("chai");
 const chaiAsPromised = require("chai-as-promised");
 const sinon = require("sinon");
+
 const { throwNotFoundError } = require("../../../errors/NotFoundError");
 const { productsModel } = require("../../../models/productsModel");
 const { productsService } = require("../../../services/productsService");

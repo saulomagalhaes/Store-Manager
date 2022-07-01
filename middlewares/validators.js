@@ -16,22 +16,3 @@ const runSchema = (schema) => async (unknown) => {
 };
 
 module.exports = { runSchema };
-
-//   if (error) {
-//     if (error.details[0].type === "string.min") {
-//       error.code = 422;
-//       throw error;
-
-//     if (error.details[0].type === "number.min") {
-//       error.code = 400;
-//       throw error;
-//     }
-//     if (error.details[0].type === "any.required") {
-//       error.code = 400;
-//       throw error;
-//     }
-//     return;
-//   }
-
-//   return value;
-// };
