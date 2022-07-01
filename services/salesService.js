@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { salesModel } = require('../models/salesModel');
 
-const { runSchema } = require('../middlewares/validators');
+const { runSchema } = require('../utils/validators');
 const message = require('../errors/messages');
 const { throwNotFoundError } = require('../errors/NotFoundError');
 

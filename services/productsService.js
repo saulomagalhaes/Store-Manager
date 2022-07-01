@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const { productsModel } = require('../models/productsModel');
 const { throwNotFoundError } = require('../errors/NotFoundError');
-const { runSchema } = require('../middlewares/validators');
+const { runSchema } = require('../utils/validators');
 
 const productsService = {
   validateCreateProduct: runSchema(

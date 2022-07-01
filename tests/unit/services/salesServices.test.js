@@ -2,7 +2,6 @@ const chai = require("chai");
 const chaiAsPromised = require("chai-as-promised");
 const sinon = require("sinon");
 
-
 const { salesService } = require("../../../services/salesService");
 const { salesModel } = require("../../../models/salesModel");
 
@@ -38,6 +37,33 @@ describe("SalesServices", () => {
       return chai
         .expect(salesService.addSale([{}, {}]))
         .to.eventually.deep.equal({ id: 1, itemsSold: [{}, {}] });
+    });
+  });
+
+  describe("#getAll", () => {
+    it("deve retornar uma lista com todas as vendas", async () => {
+      sinon.stub(salesModel, "getAll").resolves([{ saleId: 1 }, { saleId: 2 }]);
+      chai
+        .expect(await salesService.getAll())
+        .to.deep.equal([{ saleId: 1 }, { saleId: 2 }]);
+    });
+  });
+
+  describe("#getById", () => {
+    it("deve disparar um erro se retornar uma lista vazia", () => {
+      sinon.stub(salesModel, "getById").resolves([]);
+      return chai
+        .expect(salesService.getById(9999))
+        .to.eventually.be.rejectedWith("Sale not found");
+    });
+    
+    it("deve retornar uma lista de uma venda específica", async () => {
+      sinon
+        .stub(salesModel, "getById")
+        .resolves([{ saleId: 1 }, { saleId: 1 }]);
+      chai
+        .expect(await salesService.getById(1))
+        .to.deep.equal([{ saleId: 1 }, { saleId: 1 }]);
     });
   });
 });

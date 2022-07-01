@@ -7,7 +7,7 @@ const salesController = {
 
     res.status(201).json(sale);
   },
-  async getAll(req, res) {
+  async getAll(_req, res) {
     const sales = await salesService.getAll();
 
     res.status(200).json(sales);
