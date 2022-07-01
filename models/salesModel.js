@@ -3,7 +3,7 @@ const { connection } = require('./connection');
 const salesModel = {
   async addSale() {
     const query = 'INSERT INTO StoreManager.sales(date) values(default)';
-    const [{ insertId }] = await connection.execute(query);
+    const [{ insertId }] = await connection.query(query);
     return insertId;
   },
   async addSalesProducts(saleId, sales) {
