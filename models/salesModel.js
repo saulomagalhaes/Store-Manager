@@ -11,6 +11,7 @@ const salesModel = {
     VALUES ?`;
     const map = sales.map((sale) => [saleId, sale.productId, sale.quantity]);
     await connection.query(query, [map], true);
+    return true;
   },
   async existsProduct(arrayOfProductIds) {
     const query = 'SELECT * FROM StoreManager.products WHERE id IN (?);';

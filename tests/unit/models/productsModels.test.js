@@ -41,7 +41,7 @@ describe("ProductsModel", () => {
   });
 
   describe("#create", () => {
-    it("deve retornar true se encontrar o item", async () => {
+    it("ao adicionar um item no db deve retornar um id", async () => {
       sinon.stub(connection, "query").resolves([{ insertId: 1 }]);
       const id = await productsModel.create("Oculos");
       chai.expect(id).to.be.equal(1);

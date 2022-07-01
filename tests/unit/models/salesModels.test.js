@@ -11,10 +11,11 @@ describe("SalesModel", () => {
     sinon.restore();
   });
 
-  describe.only("#existsProduct", () => {
+  describe("#existsProduct", () => {
     it("deve disparar um erro caso o db.query dispare um erro", () => {
       sinon.stub(connection, "query").rejects();
-      return chai.expect(salesModel.existsProduct([1,2])).to.eventually.rejected;
+      return chai.expect(salesModel.existsProduct([1, 2])).to.eventually
+        .rejected;
     });
 
     it("deve retornar undefined caso o db.query retorne uma lista vazia", () => {
@@ -31,22 +32,30 @@ describe("SalesModel", () => {
     });
   });
 
-  // describe("#addSale", () => {
-  //   it("ao solicitar uma busca de produto por parametro retorna um objeto", async () => {
-  //     sinon
-  //       .stub(connection, "query")
-  //       .resolves([[{ id: 1, name: "Martelo de Thor" }]]);
+  describe("#addSale", () => {
+    it("deve disparar um erro caso o db.query dispare um erro", () => {
+      sinon.stub(connection, "query").rejects();
+      return chai.expect(salesModel.addSale()).to.eventually.rejected;
+    });
 
-  //     const product = await salesModel.getById(1);
-  //     chai.expect(product).to.be.deep.equal({ id: 1, name: "Martelo de Thor" });
-  //   });
-  // });
+    it("ao adicionar um item no db deve retornar um id", async () => {
+      sinon.stub(connection, "query").resolves([{ insertId: 1 }]);
 
-  // describe("#addSalesProducts", () => {
-  //   it("deve retornar true se encontrar o item", async () => {
-  //     sinon.stub(connection, "query").resolves([{ insertId: 1 }]);
-  //     const id = await salesModel.create("Oculos");
-  //     chai.expect(id).to.be.equal(1);
-  //   });
-  // });
+      const id = await salesModel.addSale();
+      chai.expect(id).to.be.equal(1);
+    });
+  });
+
+  describe("#addSalesProducts", () => {
+    it("deve disparar um erro caso o db.query dispare um erro", () => {
+      sinon.stub(connection, "query").rejects();
+      return chai.expect(salesModel.addSalesProducts(1, [{}])).to.eventually
+        .rejected;
+    });
+
+    it("deve retornar true se encontrar o item", async () => {
+      sinon.stub(connection, "query").resolves([{ insertId: 1 }]);
+      chai.expect(await salesModel.addSalesProducts(1, [{}])).to.be.equal(true);
+    });
+  });
 });
