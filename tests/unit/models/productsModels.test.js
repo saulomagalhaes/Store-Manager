@@ -46,4 +46,12 @@ describe("ProductsModel", () => {
       chai.expect(result).to.be.true;
     });
   });
+
+  describe("#deleteById", () => {
+    it("deve retornar true caso um produto seja deletado com sucesso", async () => {
+      sinon.stub(connection, "query").resolves([{ affectedRows: 1 }]);
+      const result = await productsModel.deleteById(1);
+      chai.expect(result).to.be.true;
+    });
+  });
 });
