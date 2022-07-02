@@ -101,4 +101,29 @@ describe("ProductsController", () => {
         .to.be.equal(true);
     });
   });
+
+  describe("#updateById", () => {
+    it("ao solicitar uma busca de produto por parametro retorna um objeto", async () => {
+      const req = {};
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      req.params = { id: 1 };
+      req.body = {
+        name: "Bandeira do Flamengo",
+      };
+
+      sinon
+        .stub(productsService, "getById")
+        .resolves({ id: 1, name: "Bandeira do Flamengo" });
+
+      await productsController.updateById(req, res);
+      chai.expect(res.status.calledWith(200)).to.be.equal(true);
+      chai
+        .expect(res.json.calledWith({ id: 1, name: "Bandeira do Flamengo" }))
+        .to.be.equal(true);
+    });
+  });
 });
