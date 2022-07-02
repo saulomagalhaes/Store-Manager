@@ -17,7 +17,7 @@ describe("SalesController", () => {
       const res = {};
 
       res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns();
+      res.json = sinon.stub();
 
       sinon.stub(salesService, "addSale").resolves({
         id: 1,
@@ -44,7 +44,7 @@ describe("SalesController", () => {
       const res = {};
 
       res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns();
+      res.json = sinon.stub();
 
       sinon.stub(salesService, "getAll").resolves([{ saleId: 1 }, { saleId: 2 }]);
 
@@ -63,7 +63,7 @@ describe("SalesController", () => {
       const res = {};
 
       res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns();
+      res.json = sinon.stub();
       req.params = { id: 1 };
 
       sinon

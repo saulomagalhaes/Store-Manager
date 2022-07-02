@@ -19,7 +19,7 @@ describe("ProductsController", () => {
       const res = {};
 
       res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns();
+      res.json = sinon.stub();
 
       sinon.stub(productsService, "getAll").resolves([
         {
@@ -56,7 +56,7 @@ describe("ProductsController", () => {
       const res = {};
 
       res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns();
+      res.json = sinon.stub();
 
       req.params = { id: 1 };
 
@@ -78,7 +78,7 @@ describe("ProductsController", () => {
       const res = {};
 
       res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns();
+      res.json = sinon.stub();
 
       req.body = {
         name: "flamengo",
@@ -98,6 +98,31 @@ describe("ProductsController", () => {
             name: "flamengo",
           })
         )
+        .to.be.equal(true);
+    });
+  });
+
+  describe("#updateById", () => {
+    it("ao solicitar uma busca de produto por parametro retorna um objeto", async () => {
+      const req = {};
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
+
+      req.params = { id: 1 };
+      req.body = {
+        name: "Bandeira do Flamengo",
+      };
+
+      sinon
+        .stub(productsService, "updateById")
+        .resolves({ id: 1, name: "Bandeira do Flamengo" });
+
+      await productsController.updateById(req, res);
+      chai.expect(res.status.calledWith(200)).to.be.equal(true);
+      chai
+        .expect(res.json.calledWith({ id: 1, name: "Bandeira do Flamengo" }))
         .to.be.equal(true);
     });
   });
