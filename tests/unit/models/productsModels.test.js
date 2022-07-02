@@ -6,7 +6,6 @@ chai.use(chaiAsPromised);
 const { connection } = require("../../../models/connection");
 const { productsModel } = require("../../../models/productsModel");
 
-
 describe("ProductsModel", () => {
   beforeEach(() => {
     sinon.restore();
@@ -25,7 +24,9 @@ describe("ProductsModel", () => {
 
     it("deve retornar um array caso o db.query retorne vários items na lista", () => {
       sinon.stub(connection, "query").resolves([[{}, {}]]);
-      return chai.expect(productsModel.getAll()).to.eventually.deep.equal([{}, {}]);
+      return chai
+        .expect(productsModel.getAll())
+        .to.eventually.deep.equal([{}, {}]);
     });
   });
 
@@ -45,6 +46,19 @@ describe("ProductsModel", () => {
       sinon.stub(connection, "query").resolves([{ insertId: 1 }]);
       const id = await productsModel.create("Oculos");
       chai.expect(id).to.be.equal(1);
+    });
+  });
+
+  describe("#updateById", () => {
+    it("deve disparar um erro caso o db.query dispare um erro", () => {
+      sinon.stub(connection, "query").rejects();
+      return chai.expect(productsModel.updateById(1, 'Martelo de Thor')).to.eventually.rejected;
+    });
+
+    it("deve retornar true caso um produto seja atualizado com sucesso", async () => {
+      sinon.stub(connection, "query").resolves([{ affectedRows: 1 }]);
+      const result = await productsModel.updateById(1, "Martelo de Thor");
+      chai.expect(result).to.be.true;
     });
   });
 });
