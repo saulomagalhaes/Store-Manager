@@ -116,7 +116,7 @@ describe("ProductsController", () => {
       };
 
       sinon
-        .stub(productsService, "getById")
+        .stub(productsService, "updateById")
         .resolves({ id: 1, name: "Bandeira do Flamengo" });
 
       await productsController.updateById(req, res);
