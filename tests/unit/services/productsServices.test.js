@@ -81,4 +81,19 @@ describe("ProductsService", () => {
         .to.deep.equal({ id: 1, name: "Bandeira do Flamengo" });
     });
   });
+
+  describe("#deleteById", () => {
+    it("deve disparar um erro caso o retorno do model seja falso", () => {
+      sinon.stub(productsModel, "deleteById").resolves(false);
+      return chai
+        .expect(productsService.deleteById(100000))
+        .to.eventually.be.rejectedWith("Product not found");
+    });
+
+    it("deve retornar true caso dê tudo certo", async () => {
+      sinon.stub(productsModel, "deleteById").resolves(true);
+      const result = await productsService.deleteById(1);
+      chai.expect(result).to.be.true;
+    });
+  });
 });
