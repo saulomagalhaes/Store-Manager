@@ -11,11 +11,6 @@ describe("SalesServices", () => {
   });
 
   describe("#addSale", () => {
-    it("deve disparar um erro caso o salesModel dispare um erro", () => {
-      sinon.stub(salesModel, "existsProduct").rejects();
-      return chai.expect(salesService.addSale([{}, {}])).to.eventually.rejected;
-    });
-
     it("deve disparar um erro caso o salesModel retorne um array vazio", () => {
       sinon.stub(salesModel, "existsProduct").resolves([]);
       return chai

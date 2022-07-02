@@ -12,16 +12,6 @@ describe("ProductsModel", () => {
   });
 
   describe("#getAll", () => {
-    it("deve disparar um erro caso o db.query dispare um erro", () => {
-      sinon.stub(connection, "query").rejects();
-      return chai.expect(productsModel.getAll()).to.eventually.rejected;
-    });
-
-    it("deve retornar undefined caso o db.query retorne uma lista vazia", () => {
-      sinon.stub(connection, "query").resolves([]);
-      return chai.expect(productsModel.getAll()).to.eventually.be.undefined;
-    });
-
     it("deve retornar um array caso o db.query retorne vários items na lista", () => {
       sinon.stub(connection, "query").resolves([[{}, {}]]);
       return chai
@@ -50,11 +40,6 @@ describe("ProductsModel", () => {
   });
 
   describe("#updateById", () => {
-    it("deve disparar um erro caso o db.query dispare um erro", () => {
-      sinon.stub(connection, "query").rejects();
-      return chai.expect(productsModel.updateById(1, 'Martelo de Thor')).to.eventually.rejected;
-    });
-
     it("deve retornar true caso um produto seja atualizado com sucesso", async () => {
       sinon.stub(connection, "query").resolves([{ affectedRows: 1 }]);
       const result = await productsModel.updateById(1, "Martelo de Thor");
