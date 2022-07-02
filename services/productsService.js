@@ -5,16 +5,9 @@ const { throwNotFoundError } = require('../errors/NotFoundError');
 const { runSchema } = require('../utils/validators');
 
 const productsService = {
-  validateCreateProduct: runSchema(
+  validateNameProduct: runSchema(
     Joi.object({
       name: Joi.string().min(5).required(),
-    }),
-  ),
-  validateParamsCep: runSchema(
-    Joi.object({
-      cep: Joi.string()
-        .regex(/^\d{5}-?\d{3}$/)
-        .required(),
     }),
   ),
   async getAll() {
@@ -29,6 +22,11 @@ const productsService = {
   async create(name) {
     const productId = await productsModel.create(name);
     return { id: productId, name };
+  },
+  async updateById(id, name) {
+    const product = await productsModel.updateById(id, name);
+    if (!product) throwNotFoundError('Product not found');
+    return { id, name };
   },
 };
 module.exports = { productsService };
