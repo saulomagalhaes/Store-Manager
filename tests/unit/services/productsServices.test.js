@@ -62,4 +62,24 @@ describe("ProductsService", () => {
       chai.expect(result).to.deep.equal({ id: 1, name: "Oculos" });
     });
   });
+
+  describe("#updateById", () => {
+    it("deve disparar um erro caso o retorno do model seja falso", () => {
+      sinon.stub(productsModel, "updateById").resolves(false);
+      return chai
+        .expect(productsService.updateById(100000, "Falso"))
+        .to.eventually.be.rejectedWith("Product not found");
+    });
+
+    it("deve retornar um objeto caso dê tudo certo", async () => {
+      sinon.stub(productsModel, "updateById").resolves(true);
+      const result = await productsService.updateById(
+        1,
+        "Bandeira do Flamengo"
+      );
+      chai
+        .expect(result)
+        .to.deep.equal({ id: 1, name: "Bandeira do Flamengo" });
+    });
+  });
 });
