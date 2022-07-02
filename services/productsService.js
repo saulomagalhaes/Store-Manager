@@ -28,5 +28,9 @@ const productsService = {
     if (!product) throwNotFoundError('Product not found');
     return { id, name };
   },
+  async deleteById(id) {
+    const product = await productsModel.deleteById(id);
+    if (!product) throwNotFoundError('Product not found');
+  },
 };
 module.exports = { productsService };
