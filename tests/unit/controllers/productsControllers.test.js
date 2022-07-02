@@ -126,4 +126,20 @@ describe("ProductsController", () => {
         .to.be.equal(true);
     });
   });
+
+  describe("#deleteById", () => {
+    it("ao solicitar uma busca de produto por parametro retorna um objeto", async () => {
+      const req = {};
+      const res = {};
+
+      res.sendStatus = sinon.stub();
+
+      req.params = { id: 1 };
+
+      sinon.stub(productsService, "deleteById").resolves();
+
+      await productsController.deleteById(req, res);
+      chai.expect(res.sendStatus.calledWith(204)).to.be.equal(true);
+    });
+  });
 });
