@@ -45,5 +45,10 @@ const salesModel = {
     const [rows] = await connection.query(query, [id]);
     return rows;
   },
+  async deleteById(id) {
+    const query = 'DELETE FROM StoreManager.sales WHERE id = ?';
+    const [{ affectedRows }] = await connection.query(query, [id]);
+    return !!affectedRows;
+  },
 };
 module.exports = { salesModel };

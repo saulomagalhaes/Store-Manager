@@ -5,7 +5,8 @@ const router = express.Router();
 const { salesController } = require('../controllers/salesController');
 
 router.post('/', salesController.addSale);
-router.get('/:id', salesController.getById);
 router.get('/', salesController.getAll);
+router.get('/:id', salesController.getById);
+router.delete('/:id', salesController.deleteById);
 
 module.exports = router;

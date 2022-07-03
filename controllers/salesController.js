@@ -17,5 +17,10 @@ const salesController = {
 
     res.status(200).json(sales);
   },
+  async deleteById(req, res) {
+    const { id } = req.params;
+    await salesService.deleteById(id);
+    res.sendStatus(204);
+  },
 };
 module.exports = { salesController };

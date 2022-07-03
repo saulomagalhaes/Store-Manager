@@ -18,7 +18,9 @@ const salesService = {
     const productsIds = sales.map((product) => product.productId);
     const existsProducts = await salesModel.existsProduct(productsIds);
     if (!existsProducts.length) throwNotFoundError('Product not found');
-    if (existsProducts.length !== productsIds.length) { throwNotFoundError('Product not found'); }
+    if (existsProducts.length !== productsIds.length) {
+      throwNotFoundError('Product not found');
+    }
 
     const saleId = await salesModel.addSale();
 
@@ -34,10 +36,15 @@ const salesService = {
     const sales = await salesModel.getAll();
     return sales;
   },
-  async getById(id) { 
+  async getById(id) {
     const sales = await salesModel.getById(id);
     if (sales.length === 0) throwNotFoundError('Sale not found');
     return sales;
+  },
+  async deleteById(id) {
+    const product = await salesModel.deleteById(id);
+    if (!product) throwNotFoundError('Sale not found');
+    return true;
   },
 };
 module.exports = { salesService };
