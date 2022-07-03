@@ -18,6 +18,11 @@ describe("SalesController", () => {
 
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub();
+      
+      req.body = [
+        { productId: 1, quantity: 10 },
+        { productId: 2, quantity: 10 },
+      ];
 
       sinon.stub(salesService, "addSale").resolves({
         id: 1,
@@ -46,7 +51,9 @@ describe("SalesController", () => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub();
 
-      sinon.stub(salesService, "getAll").resolves([{ saleId: 1 }, { saleId: 2 }]);
+      sinon
+        .stub(salesService, "getAll")
+        .resolves([{ saleId: 1 }, { saleId: 2 }]);
 
       await salesController.getAll(req, res);
 
@@ -92,6 +99,38 @@ describe("SalesController", () => {
 
       await salesController.deleteById(req, res);
       chai.expect(res.sendStatus.calledWith(204)).to.be.equal(true);
+    });
+  });
+
+  describe("#updateById", () => {
+    it("deve retornar um status 200 ao alterar uma venda com sucesso", async () => {
+      const req = {};
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
+
+      req.body = [
+        { productId: 1, quantity: 10 },
+        { productId: 2, quantity: 10 },
+      ];
+      req.params = { id: 1 };
+
+      sinon.stub(salesService, "updateById").resolves({
+        saleId: 1,
+        itemsUpdated: [{}, {}],
+      });
+
+      await salesController.updateById(req, res);
+      chai.expect(res.status.calledWith(200)).to.be.equal(true);
+      chai
+        .expect(
+          res.json.calledWith({
+            saleId: 1,
+            itemsUpdated: [{}, {}],
+          })
+        )
+        .to.be.equal(true);
     });
   });
 });
