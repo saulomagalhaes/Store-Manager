@@ -9,7 +9,7 @@ const salesService = {
   validateProductAndQuantity: runSchema(
     Joi.array().items(
       Joi.object({
-        productId: Joi.number().required().messages(message.productId),
+        productId: Joi.number().min(1).required().messages(message.productId),
         quantity: Joi.number().min(1).required().messages(message.quantity),
       }),
     ),
@@ -45,6 +45,25 @@ const salesService = {
     const product = await salesModel.deleteById(id);
     if (!product) throwNotFoundError('Sale not found');
     return true;
+  },
+  async updateById(saleId, sales) {
+    const productsIds = sales.map((product) => product.productId);
+    const existsProducts = await salesModel.existsProduct(productsIds);
+    if (!existsProducts.length) throwNotFoundError('Product not found');
+    if (existsProducts.length !== productsIds.length) {
+      throwNotFoundError('Product not found');
+    }
+    
+    const result = await Promise.all(
+      sales.map(({ productId, quantity }) =>
+        salesModel.updateById(saleId, productId, quantity)),
+    );
+    if (result.includes(false)) throwNotFoundError('Sale not found');
+    
+    return {
+      saleId,
+      itemsUpdated: sales,
+    };
   },
 };
 module.exports = { salesService };

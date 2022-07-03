@@ -50,5 +50,17 @@ const salesModel = {
     const [{ affectedRows }] = await connection.query(query, [id]);
     return !!affectedRows;
   },
+  async updateById(id, productId, quantity) {
+    const query = ` 
+      UPDATE StoreManager.sales_products 
+      SET quantity = ?
+      WHERE sale_id = ? AND product_id = ?`;
+    const [{ affectedRows }] = await connection.query(query, [
+      quantity,
+      id,
+      productId,
+    ]);
+    return !!affectedRows;
+  },
 };
 module.exports = { salesModel };
