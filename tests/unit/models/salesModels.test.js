@@ -61,4 +61,13 @@ describe("SalesModel", () => {
       chai.expect(result).to.be.true;
     });
   });
+
+    describe("#updateById", () => {
+      it("deve retornar true caso um produto seja atualizado com sucesso", async () => {
+        sinon.stub(connection, "query").resolves([{ affectedRows: 1 }]);
+        const result = await salesModel.updateById(1, 2, 10);
+        chai.expect(result).to.be.true;
+      });
+    });
+
 });
