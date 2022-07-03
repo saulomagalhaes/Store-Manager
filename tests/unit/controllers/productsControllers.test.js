@@ -103,7 +103,7 @@ describe("ProductsController", () => {
   });
 
   describe("#updateById", () => {
-    it("ao solicitar uma busca de produto por parametro retorna um objeto", async () => {
+    it("deve retornar um objeto ao fazer um update de produto", async () => {
       const req = {};
       const res = {};
 
@@ -128,7 +128,7 @@ describe("ProductsController", () => {
   });
 
   describe("#deleteById", () => {
-    it("ao solicitar uma busca de produto por parametro retorna um objeto", async () => {
+    it("deve retornar um status 204 ao deletar um produto pelo id com sucesso", async () => {
       const req = {};
       const res = {};
 

@@ -51,7 +51,7 @@ describe("SalesServices", () => {
         .expect(salesService.getById(9999))
         .to.eventually.be.rejectedWith("Sale not found");
     });
-    
+
     it("deve retornar uma lista de uma venda específica", async () => {
       sinon
         .stub(salesModel, "getById")
@@ -59,6 +59,21 @@ describe("SalesServices", () => {
       chai
         .expect(await salesService.getById(1))
         .to.deep.equal([{ saleId: 1 }, { saleId: 1 }]);
+    });
+  });
+
+  describe("#deleteById", () => {
+    it("deve disparar um erro caso o retorno do model seja falso", () => {
+      sinon.stub(salesModel, "deleteById").resolves(false);
+      return chai
+        .expect(salesService.deleteById(100000))
+        .to.eventually.be.rejectedWith("Sale not found");
+    });
+
+    it("deve retornar true caso dê tudo certo", async () => {
+      sinon.stub(salesModel, "deleteById").resolves(true);
+      const result = await salesService.deleteById(1);
+      chai.expect(result).to.be.true;
     });
   });
 });

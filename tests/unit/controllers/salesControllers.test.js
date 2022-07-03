@@ -78,4 +78,20 @@ describe("SalesController", () => {
         .to.be.equal(true);
     });
   });
+
+  describe("#deleteById", () => {
+    it("deve retornar um status 204 ao deletar uma venda pelo id com sucesso", async () => {
+      const req = {};
+      const res = {};
+
+      res.sendStatus = sinon.stub();
+
+      req.params = { id: 1 };
+
+      sinon.stub(salesService, "deleteById").resolves();
+
+      await salesController.deleteById(req, res);
+      chai.expect(res.sendStatus.calledWith(204)).to.be.equal(true);
+    });
+  });
 });

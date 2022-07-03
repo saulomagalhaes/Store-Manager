@@ -38,7 +38,9 @@ describe("SalesModel", () => {
 
   describe("#getAll", () => {
     it("deve retornar uma lista com todas as vendas", async () => {
-      sinon.stub(connection, "query").resolves([[{ saleId: 1 }, { saleId: 2 }]]);
+      sinon
+        .stub(connection, "query")
+        .resolves([[{ saleId: 1 }, { saleId: 2 }]]);
       chai
         .expect(await salesModel.getAll())
         .to.deep.equal([{ saleId: 1 }, { saleId: 2 }]);
@@ -49,6 +51,14 @@ describe("SalesModel", () => {
     it("deve retornar uma lista com todas as vendas", async () => {
       sinon.stub(connection, "query").resolves([[{}, {}]]);
       chai.expect(await salesModel.getById(1)).to.deep.equal([{}, {}]);
+    });
+  });
+
+  describe("#deleteById", () => {
+    it("deve retornar true caso um produto seja deletado com sucesso", async () => {
+      sinon.stub(connection, "query").resolves([{ affectedRows: 1 }]);
+      const result = await salesModel.deleteById(1);
+      chai.expect(result).to.be.true;
     });
   });
 });
