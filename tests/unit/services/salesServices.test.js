@@ -76,4 +76,36 @@ describe("SalesServices", () => {
       chai.expect(result).to.be.true;
     });
   });
+
+  describe("#updateById", () => {
+    it("deve disparar um erro caso o salesModel retorne um array vazio", () => {
+      sinon.stub(salesModel, "existsProduct").resolves([]);
+      return chai
+        .expect(salesService.updateById(1, [{}, {}]))
+        .to.eventually.be.rejectedWith("Product not found");
+    });
+
+    it("deve disparar um erro caso o salesModel retorne um array com tamanho diferente", () => {
+      sinon.stub(salesModel, "existsProduct").resolves([true]);
+      return chai
+        .expect(salesService.updateById(1, [{}, {}]))
+        .to.eventually.be.rejectedWith("Product not found");
+    });
+
+    it("deve disparar um erro caso retorne algum false do BD", async () => {
+      sinon.stub(salesModel, "existsProduct").resolves([{}, {}]);
+      sinon.stub(salesModel, "updateById").resolves(false);
+      return chai
+        .expect(salesService.updateById(1, [{}, {}]))
+        .to.eventually.be.rejectedWith("Sale not found");
+    });
+
+    it("deve retornar um objeto caso esteja tudo ok", () => {
+      sinon.stub(salesModel, "existsProduct").resolves([{}, {}]);
+      sinon.stub(salesModel, "updateById").resolves([true, true]);
+      return chai
+        .expect(salesService.updateById(1, [{}, {}]))
+        .to.eventually.deep.equal({ saleId: 1, itemsUpdated: [{}, {}] });
+    });
+  });
 });

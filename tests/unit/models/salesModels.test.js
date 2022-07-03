@@ -63,7 +63,7 @@ describe("SalesModel", () => {
   });
 
     describe("#updateById", () => {
-      it("deve retornar true caso um produto seja atualizado com sucesso", async () => {
+      it("deve retornar true caso uma venda seja atualizada com sucesso", async () => {
         sinon.stub(connection, "query").resolves([{ affectedRows: 1 }]);
         const result = await salesModel.updateById(1, 2, 10);
         chai.expect(result).to.be.true;
