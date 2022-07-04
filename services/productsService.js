@@ -33,5 +33,11 @@ const productsService = {
     if (!product) throwNotFoundError('Product not found');
     return true;
   },
+  async searchByName(name) {
+    const products = name === ''
+      ? await productsModel.getAll()
+      : await productsModel.searchByName(name);
+    return products;
+  },
 };
 module.exports = { productsService };

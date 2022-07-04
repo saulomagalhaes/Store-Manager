@@ -26,6 +26,11 @@ const productsController = {
     await productsService.deleteById(id);
     res.sendStatus(204);
   },
+  async searchByName(req, res) {
+    const { q } = req.query;
+    const products = await productsService.searchByName(q);
+    res.status(200).json(products);
+  },
 };
 
 module.exports = { productsController };
