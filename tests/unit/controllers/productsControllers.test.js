@@ -142,4 +142,22 @@ describe("ProductsController", () => {
       chai.expect(res.sendStatus.calledWith(204)).to.be.equal(true);
     });
   });
+
+  describe("#searchByName", () => {
+    it("deve retornar um status 200 ao fazer uma busca com sucesso", async () => {
+      const req = {};
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
+
+      req.query = { q: "Martelo de Thor" };
+
+      sinon.stub(productsService, "searchByName").resolves([{}]);
+
+      await productsController.searchByName(req, res);
+      chai.expect(res.status.calledWith(200)).to.be.equal(true);
+      chai.expect(res.json.calledWith([{}])).to.be.equal(true);
+    });
+  });
 });
