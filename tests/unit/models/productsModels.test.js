@@ -54,4 +54,12 @@ describe("ProductsModel", () => {
       chai.expect(result).to.be.true;
     });
   });
+
+  describe("#searchByName", () => {
+    it("deve retornar um array com os produtos encontrados", async () => {
+      sinon.stub(connection, "query").resolves([[{id:1, name: "Martelo de Thor"}]]);
+      const result = await productsModel.searchByName('Martelo de Thor');
+      chai.expect(result).to.deep.equal([{ id: 1, name: "Martelo de Thor" }]);
+    });
+  });
 });
