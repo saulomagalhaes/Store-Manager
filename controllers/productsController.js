@@ -2,10 +2,23 @@ const { productsService } = require('../services/productsService');
 
 const productsController = {
   async getAll(_req, res) {
+    // #swagger.tags = ['Products']
+    // #swagger.description = 'Endpoint para obter todos os produtos.'
+    /* #swagger.responses[200] = {
+               schema: { $ref: "#/definitions/Products" },
+               description: 'Produtos Encontrados.'
+        } */
     const products = await productsService.getAll();
     res.status(200).json(products);
   },
   async getById(req, res) {
+    // #swagger.tags = ['Products']
+    // #swagger.description = 'Endpoint para obter um produto específico.'
+    // #swagger.parameters['id'] = { description: 'ID do produto.' }
+    /* #swagger.responses[200] = {
+               schema: { $ref: "#/definitions/Product" },
+               description: 'Produtos Encontrados.'
+        } */
     const product = await productsService.getById(req.params.id);
     res.status(200).json(product);
   },
