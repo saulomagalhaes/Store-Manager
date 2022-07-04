@@ -96,4 +96,18 @@ describe("ProductsService", () => {
       chai.expect(result).to.be.true;
     });
   });
+
+  describe("#searchByName", () => {
+    it("deve retornar todos os produtos se a busca estiver vazia", async() => {
+      sinon.stub(productsModel, "getAll").resolves([{}, {}]);
+      const products = await productsService.searchByName('')
+      chai.expect(products).to.deep.equal([{}, {}]);
+    })
+
+    it("deve retornar os itens correspondentes a busca", async () => {
+      sinon.stub(productsModel, "searchByName").resolves([{}]);
+      const products = await productsService.searchByName('Martelo de Thor');
+      chai.expect(products).to.deep.equal([{}]);
+    });
+  });
 });
