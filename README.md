@@ -1,23 +1,27 @@
 
 # Store Manager
 
-Esta foi uma API RESTful que desenvolvi afim de consolidar os conhecimentos adquiridos
-sobre a arquitetura de software MSC( Model-Service-Controller).
+Esta foi uma API RESTful desenvolvida afim de consolidar os conhecimentos adquiridos
+sobre o padrão de arquitetura de software MSC( Model-Service-Controller).
 
 A API construída é de um sistema de gerenciamento de vendas no formato dropshipping 
 que será possível criar, visualizar, deletar e atualizar produtos e vendas.
 
+Foram desenvolvidos testes unitários para essa API utilizando Mocha, Chai e Sinon.
+
 Para o gerenciamento dos dados foi utlizado o banco de dados relacional MYSQL.
-
-
-
 
 ## Autor
 
 - [@saulomagalhaes](https://www.linkedin.com/in/sauloam/)
 
+## Aprendizados
 
-## Rodando localmente
+Construção de uma API RESTful aplicando o padrão de arquitetura de software MSC
+( Model-Service-Controller), desenvolvimento de testes unitários.
+
+
+## Rodando o servidor no Docker
 
 Clone o projeto
 
@@ -49,13 +53,14 @@ Execute o container
    docker exec -it store_manager bash
 ```
 
-Inicie o servidor
+Inicie o servidor dentro do container
 
 ```bash
    npm start
 ```
 ## Documentação da API
 
+###  Products
 #### Retorna todos os produtos
 
 ```http
@@ -70,7 +75,7 @@ Inicie o servidor
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id`      | `string` | **Obrigatório**. O ID do item que você quer |
+| `id`      | `string` | **Obrigatório**. O ID do produto que você quer buscar |
 
 
 #### Retorna um item
@@ -82,7 +87,7 @@ Inicie o servidor
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `q`      | `string` | **Opcional**. O Nome do produto para a busca|
-     Observação: Se não passar nenhum nome volta todos os produtos.
+     Observação: Se não passar nenhum nome retorna todos os produtos.
 
 #### Adiciona um produto
 
@@ -101,24 +106,109 @@ Exemplo:
 }
 ```
 
+#### Atualiza um produto
 
-## Referência
+```http
+  PUT /products/{id}
+```
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` | **Obrigatório**. O ID do produto que você quer atualizar|
 
- - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
-
-
-
-
-## Demonstração
-
-Insira um gif ou um link de alguma demonstração
+| Body   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `name`      | `string` | **Obrigatório**. O Nome do produto a ser atualizado|
 
 
-## Aprendizados
+```javascript
+Exemplo:
+{
+  "name": "Luva de Pedreiro"
+}
+```
+#### Deleta um produto
 
-O que você aprendeu construindo esse projeto? Quais desafios você enfrentou e como você superou-os?
+```http
+  DELETE /products/{id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` | **Obrigatório**. O ID do produto que você quer deletar |
+
+
+
+###  Sales
+#### Retorna todas as vendas
+
+```http
+  GET /sales
+```
+
+#### Retorna uma venda
+
+```http
+  GET /sales/{id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` | **Obrigatório**. O ID da venda que você quer buscar |
+
+#### Adiciona uma venda
+```http
+  POST /sales
+```
+| Body   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `productId`      | `string` | **Obrigatório**. O id do produto|
+| `quantity`      | `number` | **Obrigatório**. A quantidade|
+
+#### Atualiza uma venda
+
+```http
+  PUT /sales/{id}
+```
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` | **Obrigatório**. O ID da venda que você quer atualizar|
+
+| Body   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `productId`      | `string` | **Obrigatório**. O id do produto|
+| `quantity`      | `number` | **Obrigatório**. A quantidade|
+
+#### Deleta uma venda
+
+```http
+  DELETE /sales/{id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` | **Obrigatório**. O ID da venda que você quer deletar |
+
+
+## Rodando os testes
+
+Para rodar os testes, rode o seguinte comando
+
+```bash
+  npm run test:mocha
+```
+
+## Referências
+
+ - [Swagger](https://swagger.io/)
+ - [Node](https://nodejs.org/en/)
+ - [Express](https://expressjs.com/)
+ - [Mocha](https://mochajs.org/)
+ - [Chai](https://www.chaijs.com/)
+ - [Sinon](https://sinonjs.org/)
+
+
+
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+
 
