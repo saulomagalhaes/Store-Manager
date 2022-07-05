@@ -17,11 +17,6 @@ Para o gerenciamento dos dados foi utlizado o banco de dados relacional MYSQL.
 - [@saulomagalhaes](https://www.linkedin.com/in/sauloam/)
 
 
-## Stack utilizada
-
-**Back-end:** Node, Express, Mocha, Chai, Sinon, Swagger
-
-
 ## Rodando localmente
 
 Clone o projeto
@@ -94,7 +89,11 @@ Inicie o servidor
 ```http
   POST /products
 ```
-#### (body) - **Obrigatório**
+| Body   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `name`      | `string` | **Obrigatório**. O Nome do produto a ser adicionado|
+
+
 ```javascript
 Exemplo:
 {
@@ -110,8 +109,7 @@ Exemplo:
  - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
 
 
-## Etiquetas
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+
 
 ## Demonstração
 
@@ -121,4 +119,6 @@ Insira um gif ou um link de alguma demonstração
 ## Aprendizados
 
 O que você aprendeu construindo esse projeto? Quais desafios você enfrentou e como você superou-os?
+
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
