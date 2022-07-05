@@ -37,9 +37,54 @@ const doc = {
     },
     AddProducts: {
       $name: 'Martelo de Thor',
-      $age: 29,
-      about: '',
     },
+    resAddProducts: {
+      id: 1,
+      name: 'Martelo de Thor',
+    },
+    addSale: [
+      {
+        productId: 1,
+        quantity: 1,
+      },
+      {
+        productId: 2,
+        quantity: 5,
+      },
+    ],
+    resAddSale: {
+      id: 3,
+      itemsSold: [
+        {
+          productId: 1,
+          quantity: 1,
+        },
+        {
+          productId: 2,
+          quantity: 5,
+        },
+      ],
+    },
+    Sales: [
+      {
+        saleId: 1,
+        productId: 1,
+        quantity: 5,
+        date: '2022-07-05T01:13:40.000Z',
+      },
+      {
+        saleId: 1,
+        productId: 2,
+        quantity: 10,
+        date: '2022-07-05T01:13:40.000Z',
+      },
+      {
+        saleId: 2,
+        productId: 3,
+        quantity: 15,
+        date: '2022-07-05T01:13:40.000Z',
+      },
+    ],
   },
 };
 

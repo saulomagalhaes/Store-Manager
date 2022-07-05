@@ -30,17 +30,24 @@
   "paths": {
     "/products/search": {
       "get": {
-        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "description": "Endpoint para buscar um produto.",
         "parameters": [
           {
             "name": "q",
             "in": "query",
+            "description": "Nome do Produto.",
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Produto Encontrado.",
+            "schema": {
+              "$ref": "#/definitions/Products"
+            }
           }
         }
       }
@@ -70,34 +77,54 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "description": "Endpoint para atualizar um produto.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID do produto."
+          },
+          {
+            "name": "Product",
+            "in": "body",
+            "description": "Informações do produto.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProducts"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Produto Atualizado.",
+            "schema": {
+              "$ref": "#/definitions/resAddProducts"
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "description": "Endpoint para deletar um produto.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID do produto."
           }
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "Produto Deletado."
           }
         }
       }
@@ -119,44 +146,27 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "description": "Endpoint para criação de um produto.",
         "parameters": [
           {
-            "name": "body",
+            "name": "Product",
             "in": "body",
+            "description": "Informações do produto.",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/AddProducts"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
-          }
-        }
-      }
-    },
-    "/sales/": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          }
-        }
-      },
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
+            "description": "Produto Criado.",
+            "schema": {
+              "$ref": "#/definitions/resAddProducts"
+            }
           }
         }
       }
@@ -210,6 +220,48 @@
           }
         }
       }
+    },
+    "/sales/": {
+      "get": {
+        "tags": [
+          "Sales"
+        ],
+        "description": "Endpoint para obter todas as vendas.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Vendas Encontradas.",
+            "schema": {
+              "$ref": "#/definitions/Sales"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Sales"
+        ],
+        "description": "Endpoint para criação de uma venda.",
+        "parameters": [
+          {
+            "name": "Sale",
+            "in": "body",
+            "description": "Informações da venda.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addSale"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Venda Criada.",
+            "schema": {
+              "$ref": "#/definitions/resAddSale"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -248,20 +300,89 @@
         "name": {
           "type": "string",
           "example": "Martelo de Thor"
-        },
-        "age": {
-          "type": "number",
-          "example": 29
-        },
-        "about": {
-          "type": "string",
-          "example": ""
         }
       },
       "required": [
-        "name",
-        "age"
+        "name"
       ]
+    },
+    "resAddProducts": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Martelo de Thor"
+        }
+      }
+    },
+    "addSale": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "number",
+            "example": 2
+          },
+          "quantity": {
+            "type": "number",
+            "example": 5
+          }
+        }
+      }
+    },
+    "resAddSale": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 3
+        },
+        "itemsSold": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": {
+                "type": "number",
+                "example": 2
+              },
+              "quantity": {
+                "type": "number",
+                "example": 5
+              }
+            }
+          }
+        }
+      }
+    },
+    "Sales": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "saleId": {
+            "type": "number",
+            "example": 2
+          },
+          "productId": {
+            "type": "number",
+            "example": 3
+          },
+          "quantity": {
+            "type": "number",
+            "example": 15
+          },
+          "date": {
+            "type": "string",
+            "example": "2022-07-05T01:13:40.000Z"
+          }
+        }
+      }
     }
   }
 }
