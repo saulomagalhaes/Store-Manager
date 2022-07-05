@@ -36,7 +36,7 @@
         "description": "Endpoint para buscar um produto.",
         "parameters": [
           {
-            "name": "q",
+            "q": "name",
             "in": "query",
             "description": "Nome do Produto.",
             "type": "string"
@@ -73,6 +73,9 @@
             "schema": {
               "$ref": "#/definitions/Product"
             }
+          },
+          "404": {
+            "description": "Produto não encontrado."
           }
         }
       },
@@ -105,6 +108,9 @@
             "schema": {
               "$ref": "#/definitions/resAddProducts"
             }
+          },
+          "404": {
+            "description": "Produto não encontrado."
           }
         }
       },
@@ -125,6 +131,9 @@
         "responses": {
           "204": {
             "description": "Produto Deletado."
+          },
+          "404": {
+            "description": "Produto não encontrado."
           }
         }
       }
@@ -173,50 +182,86 @@
     },
     "/sales/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Sales"
+        ],
+        "description": "Endpoint para obter uma venda específica.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID da venda."
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Vendas Encontradas.",
+            "schema": {
+              "$ref": "#/definitions/SaleID"
+            }
+          },
+          "404": {
+            "description": "Venda não encontrada."
           }
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Sales"
+        ],
+        "description": "Endpoint para atualizar uma venda.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID da venda."
+          },
+          {
+            "name": "Sale",
+            "in": "body",
+            "description": "Informações da venda.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addSale"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Venda Atualizada.",
+            "schema": {
+              "$ref": "#/definitions/resUpdateSale"
+            }
+          },
+          "404": {
+            "description": "Venda não encontrada."
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Sales"
+        ],
+        "description": "Endpoint para deletar uma venda.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID da venda."
           }
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "Venda Deletada."
+          },
+          "404": {
+            "description": "Venda não encontrada."
           }
         }
       }
@@ -380,6 +425,51 @@
           "date": {
             "type": "string",
             "example": "2022-07-05T01:13:40.000Z"
+          }
+        }
+      }
+    },
+    "SaleID": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2022-07-05T01:13:40.000Z"
+          },
+          "productId": {
+            "type": "number",
+            "example": 2
+          },
+          "quantity": {
+            "type": "number",
+            "example": 10
+          }
+        }
+      }
+    },
+    "resUpdateSale": {
+      "type": "object",
+      "properties": {
+        "saleId": {
+          "type": "string",
+          "example": "1"
+        },
+        "itemsUpdated": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": {
+                "type": "number",
+                "example": 2
+              },
+              "quantity": {
+                "type": "number",
+                "example": 30
+              }
+            }
           }
         }
       }

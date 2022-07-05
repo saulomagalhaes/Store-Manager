@@ -68,12 +68,6 @@ const doc = {
     Sales: [
       {
         saleId: 1,
-        productId: 1,
-        quantity: 5,
-        date: '2022-07-05T01:13:40.000Z',
-      },
-      {
-        saleId: 1,
         productId: 2,
         quantity: 10,
         date: '2022-07-05T01:13:40.000Z',
@@ -85,6 +79,31 @@ const doc = {
         date: '2022-07-05T01:13:40.000Z',
       },
     ],
+    SaleID: [
+      {
+        date: '2022-07-05T01:13:40.000Z',
+        productId: 1,
+        quantity: 5,
+      },
+      {
+        date: '2022-07-05T01:13:40.000Z',
+        productId: 2,
+        quantity: 10,
+      },
+    ],
+    resUpdateSale: {
+      saleId: '1',
+      itemsUpdated: [
+        {
+          productId: 1,
+          quantity: 20,
+        },
+        {
+          productId: 2,
+          quantity: 30,
+        },
+      ],
+    },
   },
 };
 

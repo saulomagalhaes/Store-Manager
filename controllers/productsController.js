@@ -19,6 +19,9 @@ const productsController = {
                schema: { $ref: "#/definitions/Product" },
                description: 'Produtos Encontrados.'
         } */
+    /* #swagger.responses[404] = {
+               description: 'Produto não encontrado.'
+     } */
     const product = await productsService.getById(req.params.id);
     res.status(200).json(product);
   },
@@ -54,6 +57,9 @@ const productsController = {
                schema: { $ref: "#/definitions/resAddProducts" },
                description: 'Produto Atualizado.'
         } */
+    /* #swagger.responses[404] = {
+               description: 'Produto não encontrado.'
+     } */
     const { id } = req.params;
     const { name } = await productsService.validateNameProduct(req.body);
     const product = await productsService.updateById(id, name);
@@ -66,6 +72,9 @@ const productsController = {
     /* #swagger.responses[204] = {
                description: 'Produto Deletado.'
         } */
+    /* #swagger.responses[404] = {
+               description: 'Produto não encontrado.'
+     } */
     const { id } = req.params;
     await productsService.deleteById(id);
     res.sendStatus(204);
