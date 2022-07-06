@@ -17,26 +17,17 @@
       "description": "Endpoints"
     }
   ],
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/products/search": {
       "get": {
-        "tags": [
-          "Products"
-        ],
-        "description": "Endpoint para buscar um produto.",
+        "tags": ["Products"],
+        "description": "Endpoint para buscar produtos pelo nome.",
         "parameters": [
           {
-            "q": "name",
+            "name": "q",
             "in": "query",
             "description": "Nome do Produto.",
             "type": "string"
@@ -44,9 +35,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Produto Encontrado.",
+            "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Products"
+              "$ref": "#/definitions/ProductsByQueryString"
             }
           }
         }
@@ -54,9 +45,7 @@
     },
     "/products/{id}": {
       "get": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "description": "Endpoint para obter um produto específico.",
         "parameters": [
           {
@@ -69,20 +58,23 @@
         ],
         "responses": {
           "200": {
-            "description": "Produtos Encontrados.",
+            "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Product"
+              "$ref": "#/definitions/ProductByID"
             }
           },
           "404": {
-            "description": "Produto não encontrado."
+            "description": "NOT FOUND.",
+            "examples": {
+              "application/json": {
+                "message": "Product not found"
+              }
+            }
           }
         }
       },
       "put": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "description": "Endpoint para atualizar um produto.",
         "parameters": [
           {
@@ -98,26 +90,45 @@
             "description": "Informações do produto.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AddProducts"
+              "$ref": "#/definitions/UpdateProducts"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Produto Atualizado.",
+            "description": "OK",
             "schema": {
-              "$ref": "#/definitions/resAddProducts"
+              "$ref": "#/definitions/resUpdateProducts"
             }
           },
           "404": {
-            "description": "Produto não encontrado."
+            "description": "NOT FOUND",
+            "examples": {
+              "application/json": {
+                "message": "Product not found"
+              }
+            }
+          },
+          "400": {
+            "description": "BAD REQUEST",
+            "examples": {
+              "application/json": {
+                "message": "\"name\" is required"
+              }
+            }
+          },
+          "422": {
+            "description": " UNPROCESSABLE ENTITY",
+            "examples": {
+              "application/json": {
+                "message": "\"name\" length must be at least 5 characters long"
+              }
+            }
           }
         }
       },
       "delete": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "description": "Endpoint para deletar um produto.",
         "parameters": [
           {
@@ -130,34 +141,35 @@
         ],
         "responses": {
           "204": {
-            "description": "Produto Deletado."
+            "description": "NO CONTENT"
           },
           "404": {
-            "description": "Produto não encontrado."
+            "description": "NOT FOUND",
+            "examples": {
+              "application/json": {
+                "message": "Product not found"
+              }
+            }
           }
         }
       }
     },
     "/products/": {
       "get": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "description": "Endpoint para obter todos os produtos.",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Produtos Encontrados.",
+            "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Products"
+              "$ref": "#/definitions/AllProducts"
             }
           }
         }
       },
       "post": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "description": "Endpoint para criação de um produto.",
         "parameters": [
           {
@@ -172,9 +184,25 @@
         ],
         "responses": {
           "201": {
-            "description": "Produto Criado.",
+            "description": "CREATED",
             "schema": {
               "$ref": "#/definitions/resAddProducts"
+            }
+          },
+          "400": {
+            "description": "BAD REQUEST",
+            "examples": {
+              "application/json": {
+                "message": "\"name\" is required"
+              }
+            }
+          },
+          "422": {
+            "description": "UNPROCESSABLE ENTITY",
+            "examples": {
+              "application/json": {
+                "message": "\"name\" length must be at least 5 characters long"
+              }
             }
           }
         }
@@ -182,9 +210,7 @@
     },
     "/sales/{id}": {
       "get": {
-        "tags": [
-          "Sales"
-        ],
+        "tags": ["Sales"],
         "description": "Endpoint para obter uma venda específica.",
         "parameters": [
           {
@@ -197,20 +223,23 @@
         ],
         "responses": {
           "200": {
-            "description": "Vendas Encontradas.",
+            "description": "OK",
             "schema": {
-              "$ref": "#/definitions/SaleID"
+              "$ref": "#/definitions/SaleByID"
             }
           },
           "404": {
-            "description": "Venda não encontrada."
+            "description": "NOT FOUND",
+            "examples": {
+              "application/json": {
+                "message": "Sale not found"
+              }
+            }
           }
         }
       },
       "put": {
-        "tags": [
-          "Sales"
-        ],
+        "tags": ["Sales"],
         "description": "Endpoint para atualizar uma venda.",
         "parameters": [
           {
@@ -226,26 +255,29 @@
             "description": "Informações da venda.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/addSale"
+              "$ref": "#/definitions/UpdateSale"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Venda Atualizada.",
+            "description": "OK",
             "schema": {
               "$ref": "#/definitions/resUpdateSale"
             }
           },
           "404": {
-            "description": "Venda não encontrada."
+            "description": "NOT FOUND",
+            "examples": {
+              "application/json": {
+                "message": "Sale not found"
+              }
+            }
           }
         }
       },
       "delete": {
-        "tags": [
-          "Sales"
-        ],
+        "tags": ["Sales"],
         "description": "Endpoint para deletar uma venda.",
         "parameters": [
           {
@@ -258,24 +290,27 @@
         ],
         "responses": {
           "204": {
-            "description": "Venda Deletada."
+            "description": "NO CONTENT"
           },
           "404": {
-            "description": "Venda não encontrada."
+            "description": "NOT FOUND",
+            "examples": {
+              "application/json": {
+                "message": "Sale not found"
+              }
+            }
           }
         }
       }
     },
     "/sales/": {
       "get": {
-        "tags": [
-          "Sales"
-        ],
+        "tags": ["Sales"],
         "description": "Endpoint para obter todas as vendas.",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Vendas Encontradas.",
+            "description": "OK",
             "schema": {
               "$ref": "#/definitions/Sales"
             }
@@ -283,9 +318,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Sales"
-        ],
+        "tags": ["Sales"],
         "description": "Endpoint para criação de uma venda.",
         "parameters": [
           {
@@ -300,9 +333,34 @@
         ],
         "responses": {
           "201": {
-            "description": "Venda Criada.",
+            "description": "CREATED",
             "schema": {
               "$ref": "#/definitions/resAddSale"
+            }
+          },
+          "400": {
+            "description": "BAD REQUEST",
+            "examples": {
+              "application/json": {
+                "message{1}": "\"productId\" is required",
+                "message{2}": "\"quantity\" is required"
+              }
+            }
+          },
+          "404": {
+            "description": "NOT FOUND",
+            "examples": {
+              "application/json": {
+                "message": "Product not found"
+              }
+            }
+          },
+          "422": {
+            "description": " UNPROCESSABLE ENTITY",
+            "examples": {
+              "application/json": {
+                "message": "\"quantity\" must be greater than or equal to 1"
+              }
             }
           }
         }
@@ -310,13 +368,13 @@
     }
   },
   "definitions": {
-    "Products": {
+    "AllProducts": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
+            "type": "integer",
             "example": 1
           },
           "name": {
@@ -324,18 +382,73 @@
             "example": "Martelo de Thor"
           }
         }
-      }
+      },
+      "example": [
+        {
+          "id": 1,
+          "name": "Martelo de Thor"
+        },
+        {
+          "id": 2,
+          "name": "Traje de encolhimento"
+        }
+      ]
     },
-    "Product": {
+    "ProductsByQueryString": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Martelo de Thor"
+          }
+        }
+      },
+      "example": [
+        {
+          "id": 1,
+          "name": "Martelo de Thor"
+        }
+      ]
+    },
+    "ProductByID": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "number",
+          "type": "integer",
           "example": 1
         },
         "name": {
           "type": "string",
           "example": "Martelo de Thor"
+        }
+      }
+    },
+    "UpdateProducts": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Luva de Pedreiro"
+        }
+      },
+      "required": ["name"]
+    },
+    "resUpdateProducts": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Luva de Pedreiro"
         }
       }
     },
@@ -344,23 +457,21 @@
       "properties": {
         "name": {
           "type": "string",
-          "example": "Martelo de Thor"
+          "example": "Luva de Pedreiro"
         }
       },
-      "required": [
-        "name"
-      ]
+      "required": ["name"]
     },
     "resAddProducts": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "number",
-          "example": 1
+          "type": "integer",
+          "example": 3
         },
         "name": {
           "type": "string",
-          "example": "Martelo de Thor"
+          "example": "Luva de Pedreiro"
         }
       }
     },
@@ -370,21 +481,29 @@
         "type": "object",
         "properties": {
           "productId": {
-            "type": "number",
-            "example": 2
+            "type": "integer"
           },
           "quantity": {
-            "type": "number",
-            "example": 5
+            "type": "integer"
           }
         }
-      }
+      },
+      "example": [
+        {
+          "productId": 1,
+          "quantity": 10
+        },
+        {
+          "productId": 2,
+          "quantity": 50
+        }
+      ]
     },
     "resAddSale": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "number",
+          "type": "integer",
           "example": 3
         },
         "itemsSold": {
@@ -393,11 +512,11 @@
             "type": "object",
             "properties": {
               "productId": {
-                "type": "number",
+                "type": "integer",
                 "example": 2
               },
               "quantity": {
-                "type": "number",
+                "type": "integer",
                 "example": 5
               }
             }
@@ -411,15 +530,15 @@
         "type": "object",
         "properties": {
           "saleId": {
-            "type": "number",
+            "type": "integer",
             "example": 2
           },
           "productId": {
-            "type": "number",
+            "type": "integer",
             "example": 3
           },
           "quantity": {
-            "type": "number",
+            "type": "integer",
             "example": 15
           },
           "date": {
@@ -427,9 +546,23 @@
             "example": "2022-07-05T01:13:40.000Z"
           }
         }
-      }
+      },
+      "example": [
+        {
+          "saleId": 1,
+          "date": "2021-09-09T04:54:29.000Z",
+          "productId": 1,
+          "quantity": 2
+        },
+        {
+          "saleId": 2,
+          "date": "2021-09-09T04:54:54.000Z",
+          "productId": 2,
+          "quantity": 2
+        }
+      ]
     },
-    "SaleID": {
+    "SaleByID": {
       "type": "array",
       "items": {
         "type": "object",
@@ -439,15 +572,41 @@
             "example": "2022-07-05T01:13:40.000Z"
           },
           "productId": {
-            "type": "number",
+            "type": "integer",
             "example": 2
           },
           "quantity": {
-            "type": "number",
+            "type": "integer",
             "example": 10
           }
         }
-      }
+      },
+      "example": [
+        {
+          "date": "2021-09-09T04:54:29.000Z",
+          "productId": 1,
+          "quantity": 2
+        },
+        {
+          "date": "2021-09-09T04:54:54.000Z",
+          "productId": 2,
+          "quantity": 2
+        }
+      ]
+    },
+    "UpdateSale": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "type": "integer",
+          "example": 1
+        },
+        "quantity": {
+          "type": "integer",
+          "example": 10
+        }
+      },
+      "required": ["productId", "quantity"]
     },
     "resUpdateSale": {
       "type": "object",
@@ -462,11 +621,11 @@
             "type": "object",
             "properties": {
               "productId": {
-                "type": "number",
+                "type": "integer",
                 "example": 2
               },
               "quantity": {
-                "type": "number",
+                "type": "integer",
                 "example": 30
               }
             }

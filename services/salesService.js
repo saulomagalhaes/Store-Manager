@@ -53,13 +53,11 @@ const salesService = {
     if (existsProducts.length !== productsIds.length) {
       throwNotFoundError('Product not found');
     }
-    
     const result = await Promise.all(
       sales.map(({ productId, quantity }) =>
         salesModel.updateById(saleId, productId, quantity)),
     );
     if (result.includes(false)) throwNotFoundError('Sale not found');
-    
     return {
       saleId,
       itemsUpdated: sales,
