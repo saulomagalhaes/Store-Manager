@@ -212,3 +212,10 @@ Para rodar os testes, rode o seguinte comando
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
 
+
+## Screenshots
+
+![App Screenshot](https://i.pinimg.com/originals/be/a1/3b/bea13b1e98ec687e0c0b99037eb7d779.jpg)
+
+![App Screenshot](https://i.pinimg.com/originals/96/3d/23/963d23464001e092fc1e342333a9f9b0.jpg)
+
