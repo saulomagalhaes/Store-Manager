@@ -18,7 +18,7 @@ Para o gerenciamento dos dados foi utlizado o banco de dados relacional MYSQL.
 ## Aprendizados
 
 Construção de uma API RESTful aplicando o padrão de arquitetura de software MSC
-( Model-Service-Controller), desenvolvimento de testes unitários.
+(Model-Service-Controller) e desenvolvimento de testes unitários.
 
 
 ## Rodando o servidor no Docker
@@ -58,7 +58,15 @@ Inicie o servidor dentro do container
 ```bash
    npm start
 ```
-## Documentação da API
+
+## Documentação Completa da API
+
+Ao subir o container docker acesse o link e tenha 
+acesso a documentação de forma mais detalhada.
+
+[http://localhost:3000/doc](http://localhost:3000/doc)
+
+## Documentação Resumida da API
 
 ###  Products
 #### Retorna todos os produtos
@@ -161,8 +169,22 @@ Exemplo:
 ```
 | Body   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `productId`      | `string` | **Obrigatório**. O id do produto|
+| `productId`      | `string` | **Obrigatório**. O id da venda|
 | `quantity`      | `number` | **Obrigatório**. A quantidade|
+
+```javascript
+Exemplo:
+  [
+    {
+      "productId": 1,
+      "quantity":1
+    },
+    {
+      "productId":5 ,
+      "quantity":5
+    }
+  ]
+```
 
 #### Atualiza uma venda
 
@@ -175,8 +197,22 @@ Exemplo:
 
 | Body   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `productId`      | `string` | **Obrigatório**. O id do produto|
+| `productId`      | `string` | **Obrigatório**. O id do venda|
 | `quantity`      | `number` | **Obrigatório**. A quantidade|
+
+```javascript
+Exemplo:
+  [
+    {
+      "productId": 1,
+      "quantity":20
+    },
+    {
+      "productId": 2,
+      "quantity":30
+    }
+  ]
+```
 
 #### Deleta uma venda
 
@@ -191,7 +227,7 @@ Exemplo:
 
 ## Rodando os testes
 
-Para rodar os testes, rode o seguinte comando
+Para rodar os testes, execute o seguinte comando:
 
 ```bash
   npm run test:mocha
