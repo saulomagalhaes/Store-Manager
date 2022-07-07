@@ -169,7 +169,7 @@ Exemplo:
 ```
 | Body   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `productId`      | `string` | **Obrigatório**. O id da venda|
+| `productId`      | `string` | **Obrigatório**. O id da produto|
 | `quantity`      | `number` | **Obrigatório**. A quantidade|
 
 ```javascript
@@ -197,7 +197,7 @@ Exemplo:
 
 | Body   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `productId`      | `string` | **Obrigatório**. O id do venda|
+| `productId`      | `string` | **Obrigatório**. O id do produto|
 | `quantity`      | `number` | **Obrigatório**. A quantidade|
 
 ```javascript
