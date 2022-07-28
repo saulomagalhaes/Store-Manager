@@ -5,11 +5,4 @@ const throwNotFoundError = (message) => {
   throw error;
 };
 
-// class NotFoundError extends Error {
-//   constructor(message) {
-//     super(message);
-//     this.name = 'NotFoundError';
-//   }
-// }
-
 module.exports = { throwNotFoundError };
